@@ -1,0 +1,1 @@
+This README.md file is for the 0x02-shell_permissions project and tasks.
