@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Displays the content of current directory in a list format
+#+ skipping some part of the name
+
+
+LIST="$(ls ./)"
+for i in $LIST; do
+       echo "$i" | cut -d '-' -f2
+done       
