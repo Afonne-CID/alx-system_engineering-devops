@@ -2,6 +2,6 @@
 # Display the content of the file `/etc/passwd`
 
 
-while read output; do
+while read -r output; do
 	echo "$output" | cut -d ':' -f1,3,6
 done < "/etc/passwd"
