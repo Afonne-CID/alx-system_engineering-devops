@@ -5,10 +5,9 @@
 
 i=0
 while (( i<10 )); do
-	if [[ $i -eq 9 ]]; then
-		printf "Best School\nHi";
-	else
-		echo "Best School";
+	if [[ i -eq 9 ]]; then
+		printf "Best School\nHi\n"
 	fi
+	echo "Best School";
 	(( i++ ))
 done
