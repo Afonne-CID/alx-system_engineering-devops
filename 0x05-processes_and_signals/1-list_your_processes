@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Displyas a list of (all) currently running processes.
+
+ps aux
