@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# Creates a file that contains it's PID, then displays
+#+ some text depending on the command it receives
+
+
+echo "$$" > /var/run/myscript.pid
+remove() {
+	rm /var/run/myscript.pid
+}
+
+while true; do
+	echo "To infinity and beyond"
+	sleep 2
+	trap 'echo "I hate the kill command" && remove' SIGTERM
+	trap 'echo "Y U no love me?!"' SIGINT
+	trap 'remove' SIGQUIT
+done
