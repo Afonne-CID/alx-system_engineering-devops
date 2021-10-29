@@ -4,8 +4,8 @@
 #+ "I am invincible!!!" when receiving a `SIGTERM` signal
 
 i=0
-while (( i>1 )); do
+while (( i<1 )); do
 	echo "To infinity and beyond"
 	sleep 2
-	trap echo "I am invincible!!!"
+	trap 'echo "I am invincible!!!"' SIGTERM
 done
