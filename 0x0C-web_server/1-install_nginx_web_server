@@ -9,6 +9,7 @@ echo "Hello World!" > /etc/nginx/html/index.html
 echo "server {
 	listen	80 default_server;
 	listen	[::]:80 default_server;
+	add_header X-Served-by $HOSTNAME;
 	root	/etc/nginx/html;
 	index	index.html index.htm;
     }" > /etc/nginx/sites-available/default

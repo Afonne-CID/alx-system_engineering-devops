@@ -10,6 +10,7 @@ echo "server {
 	listen	80;
 	listen	[::]:80 default_server;
 	root	/etc/nginx/html;
+	add_header X-Served-by $HOSTNAME;
 	index	index.html index.htm;
 
 	location /redirect_me {
