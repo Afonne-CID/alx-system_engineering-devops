@@ -1,6 +1,17 @@
 #!/usr/bin/env bash
 #Install nginx web server
-sudo apt update
-sudo apt-get -y --allow-downgrades install nginx
-sudo ufw allow 'Nginx HTTP'
-echo "Hello World!" >  /usr/share/nginx/html/index.html
+
+apt-get update
+apt-get -y --allow-downgrades install nginx
+
+mkdir /etc/nginx/html && touch /etc/nginx/html/index.html
+echo "Hello World!" > /etc/nginx/html/index.html
+echo "server {
+	listen	80 default_server;
+	listen	[::]:80 default_server;
+	root	/etc/nginx/html;
+	index	index.html index.htm;
+    }
+}" > /etc/nginx/sites-available/default
+
+service nginx restart
