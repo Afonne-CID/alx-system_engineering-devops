@@ -10,7 +10,7 @@ echo "server {
 	listen	80;
 	listen	[::]:80 default_server;
 	root	/var/www/html;
-	add_header X-Served-by $HOSTNAME;
+	add_header X-Served-By $HOSTNAME;
 	index	index.html index.htm;
 
 	location /redirect_me {
