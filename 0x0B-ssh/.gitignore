@@ -1,0 +1,7 @@
+*.swp
+*~
+main
+auto
+PID
+*PID/
+PID/*
