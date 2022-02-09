@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+#Install and automatically configures the nginx web server
+
+apt-get update
+apt-get -y --allow-downgrades install nginx
+
+mkdir -p /var/www/html && touch /var/www/html/index.html
+echo "Hello World!" > /var/www/html/index.html
+touch /var/www/html/404.html
+echo "Ceci n'est pas une page" > /var/www/html/404.html
+echo "	server {
+			listen	80 default_server;
+			listen	[::]:80 default_server;
+			add_header X-Served-By $HOSTNAME;
+			root	/var/www/html;
+			index	index.html index.htm;
+
+			location /redirect_me {
+				return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+			}
+
+			error_page 404 /404.html;
+			location /404 {
+				internal;
+			}
+	    }
+
+	## Server Config for www.itslively.tech subdomain
+	server {
+			listen	80;
+			listen	[::]:80;
+			add_header X-Served-By 3.237.39.78;
+			root	/var/www/itslively.tech;
+			index	index.html index.htm;
+			server_name lb-01.itslively.tech;
+		}
+
+	## Server Config for lb-01.itslively.tech subdomain
+	server {
+			listen	80;
+			listen	[::]:80;
+			add_header X-Served-By 3.237.39.78;
+			root	/var/www/itslively.tech;
+			index	index.html index.htm;
+			server_name lb-01.itslively.tech;
+		}
+	
+	## Server Config for web-01.itslively.tech subdomain
+	server {
+			listen	80;
+			listen	[::]:80;
+			add_header X-Served-By 3.227.211.247;
+			root	/var/www/itslively.tech;
+			index	index.html index.htm;
+			server_name web-01.itslively.tech;
+		}
+
+	## Server Config for web-02.itslively.tech subdomain
+	server {
+			listen	80;
+			listen	[::]:80;
+			add_header X-Served-By 3.236.123.188;
+			root	/var/www/itslively.tech;
+			index	index.html index.htm;
+			server_name web-02.itslively.tech;
+		}
+
+" > /etc/nginx/sites-available/default
+
+service nginx restart
