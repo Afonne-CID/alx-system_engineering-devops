@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Nginx server configuration script to listen on port 80
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+
+if pgrep "nginx"
+then
+	service nginx restart
+else
+	service nginx start
+fi
