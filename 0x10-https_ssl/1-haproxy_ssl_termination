@@ -36,16 +36,21 @@ defaults
 ###
 frontend itslively.tech-http-frontend
 	bind *:80
-	http-request set-header X-Forwarded-Proto http
+	reqadd X-Forwarded-Proto: \ http
 	default_backend itslively.tech-backend
 
 frontend itslively.tech-https-frontend
-	bind *:443 ssl crt /etc/haproxy/cerrts/itslively.tech.pem
-	http-request set-header X-Forwarded-Proto https
+	bind *:443 ssl crt /etc/letsencrypt/live/itslively.tech/fullchain.pem
+	reqadd X-Forwarded-Proto: \ https
+	acl letsencrypt-acl path_beg /.well-known/acme-challenge/
+	use_backend letsencrypt-backend if letsencrypt-acl
 	default_backend itslively.tech-backend
 
 backend itslively.tech-backend
+	redirect scheme https if !{ ssl_fc }
 	balance roundrobin
 	server 962-web-01 3.227.211.247:80 check
 	server 962-web-02 3.236.123.188:80 check
 
+backend letsencrypt-backend
+	server letsencrypt 127.0.0.1:54321
